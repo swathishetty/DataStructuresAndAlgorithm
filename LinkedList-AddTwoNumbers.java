@@ -2,6 +2,7 @@
  * Input: l1 = [2,4,3], l2 = [5,6,4]
  * Output: [7,0,8]
  * Explanation: 342 + 465 = 807.
+ *
  * Definition for singly-linked list.
  * public class ListNode {
  *     int val;
@@ -19,16 +20,28 @@ class Solution {
         ListNode head= new ListNode(-1);
         int carry =0;
         int prevVal = -1;
-        while(curr1 != null && curr2 != null) {  
+        while(curr1 != null || curr2 != null) {  
+            if(curr1 == null) {
+                curr1 = new ListNode(0);
+            }
+             if(curr2 == null) {
+                curr2 = new ListNode(0);
+            }
+            System.out.println(curr1.val);
+             System.out.println(curr2.val);
           curr3.next = new ListNode(curr1.val + curr2.val + carry >= 10 ? (curr1.val + curr2.val + carry)%10: curr1.val + curr2.val + carry);
           carry = curr1.val + curr2.val + carry >= 10 ? (curr1.val + curr2.val + carry)/10: 0;
           if(head.val == -1){
               head = curr3.next;
           }    
-          curr1 = curr1.next;
-          curr2 = curr2.next;
+       
+          curr1 = curr1.next  ;
+          curr2 = curr2.next  ;
           curr3 = curr3.next;
           
+        }
+        if(carry > 0){
+            curr3.next = new ListNode(carry);
         }
         return head;
     }
